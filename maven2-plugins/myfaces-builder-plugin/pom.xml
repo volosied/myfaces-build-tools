@@ -39,9 +39,9 @@
   </description>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-plugin</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-plugin</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-plugin</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf?p=myfaces-build-tools.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf?p=myfaces-build-tools.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=myfaces-build-tools.git</url>
   </scm>
 
   <properties>
@@ -49,9 +49,30 @@
     <doxiaVersion>1.0</doxiaVersion>
     <pluginTestingVersion>1.2</pluginTestingVersion>
   </properties>
+
+    <!-- Turn Java Doc Errors into Warnings -->
+  <profiles>
+     <profile>
+        <id>JDK 8 Build</id>
+        <activation>
+           <jdk>[1.8,)</jdk>
+        </activation>
+        <properties>
+           <additionalparam>-Xdoclint:none</additionalparam>
+        </properties>
+     </profile>
+  </profiles>
   
   <build>
     <plugins>
+    
+      <!-- Update to Latest -->
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-release-plugin</artifactId>
+         <version>2.5.3</version>
+      </plugin>
+
       <!-- required for plexus, but we are not using this right now
       <plugin>
         <artifactId>maven-plugin-plugin</artifactId>
